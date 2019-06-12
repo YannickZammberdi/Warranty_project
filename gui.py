@@ -1,7 +1,27 @@
-import main
+import funs
 from tkinter import *
+from os import path
+from os import environ
+from sys import executable
 
-sub_list = []
+def main(name, address, data_folder = 'C:/Tom/Warranty_project/', output_path = path.join(environ["HOMEPATH"], "Desktop")):
+    # Todo: Value Area
+    sub_list = []
+    if Dream_Electrical.get() == True:
+        sub_list.append("Dream Electrical")
+    if Aus_Plumb.get() == True:
+        sub_list.append("Aus Plumb")
+    if Can_Plumb.get() == True:
+        sub_list.append("Can Plumb")
+    if Showerscreen.get() == True:
+        sub_list.append("Showerscreen")
+
+    if output_path is not None and output_path is not "":
+        funs.generate_raw_output(data_folder,sub_list,output_path)
+        funs.fill_information(name, address,output_path)
+    else:
+        funs.generate_raw_output(data_folder, sub_list)
+        funs.fill_information(name, address,output_path)
 
 window=Tk()
 
@@ -36,21 +56,9 @@ Showerscreen = BooleanVar()
 cbt4=Checkbutton(window, text="Showerscreen", variable=Showerscreen)
 cbt4.place(x=100, y=300)
 
-if Dream_Electrical == 1:
-    sub_list.append("Dream Electrical")
-if Aus_Plumb == 1:
-    sub_list.append("Aus Plumb")
-if Can_Plumb == 1:
-    sub_list.append("Can Plumb")
-if Showerscreen == 1:
-    sub_list.append("Showerscreen")
-
 btn=Button(window, text="Generate Warranty Book", fg='black',
-           command = lambda:main.main(txtfld1.get(),txtfld2.get(),sub_list
-                                      ,'C:/Tom/Warranty_project','C:/Tom/Warranty_project'))
+           command = lambda:main(txtfld1.get(),txtfld2.get(),"C:/warranty_book","C:/warranty_book"))
 btn.place(x=200, y=350)
-
-# btn.bind("<Button-1>",func.select('data/selection.xlsx'))
 
 window.title('Warranty Book Generator v0.1')
 window.geometry("600x500+10+20")

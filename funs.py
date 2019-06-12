@@ -1,4 +1,3 @@
-import win32com.client as win32
 import docx
 from docx.oxml.ns import qn
 from re import finditer
@@ -6,9 +5,11 @@ from docx.shared import Pt
 from docx.shared import RGBColor
 from os import path
 from os import environ
+import win32com.client
+
 def generate_raw_output(data_folder, sub_list, output_path = path.join(environ["HOMEPATH"], "Desktop/output.docx")):
 
-	word = win32.gencache.EnsureDispatch('Word.Application')
+	word = win32com.client.gencache.EnsureDispatch('Word.Application')
 	word.Visible = False
 	output = word.Documents.Add()
 	files = [data_folder+'/data/Title_Page.docx'] # Will move to the server in the future
