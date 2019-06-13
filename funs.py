@@ -200,6 +200,40 @@ def pdf_combiner(data_folder, PC_list, name, output_path = path.join(environ["HO
 	if "SUSSEX Reece" in PC_list:
 		files.append(data_folder+'/data/Reece/SUSSEX.pdf')
 
+	if "Abey Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/ABEY.pdf')
+	if "Argent Boch Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/ARGENT VILLEROY AND BOCH.pdf')
+	if "Argent Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/ARGENT.pdf')
+	if "Avenir Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/AVENIR.pdf')
+	if "Brodware Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/BRODWARE.pdf')
+	if "Caroma Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/CAROMA.pdf')
+	if "Decina Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/DECINA.pdf')
+	if "Fienza Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/FIENZA.pdf')
+	if "Hansgrohe Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/HANSGROHE.pdf')
+	if "Meir Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/MARQUIS.pdf')
+	if "Meir Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/MEIR.pdf')
+	if "Methven Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/METHVEN.pdf')
+	if "Neko Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/NEKO.pdf')
+	if "Pietra Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/PIETRA BIANCA.pdf')
+	if "RAM Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/RAM.pdf')
+	if "Stone Bath Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/STONE BATH.pdf')
+	if "Victora Albert Southern" in PC_list:
+		files.append(data_folder+'/data/Southern/VICTORIA AND ALBERT.pdf')
 
 	merger = PdfFileMerger()
 	for i in range(len(files)):

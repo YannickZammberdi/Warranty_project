@@ -50,6 +50,41 @@ def main(input_list, data_folder = 'C:/Tom/Warranty_project/', output_path = pat
     if SUSSEX.get() == True:
         PC_list.append("SUSSEX Reece")
 
+    if ABEY_SOUTHERN.get() == True:
+        PC_list.append("Abey Southern")
+    if ARGENT_VILLEROY_AND_BOCH_SOUTHERN.get() == True:
+        PC_list.append("Argent Boch Southern")
+    if ARGENT_SOUTHERN.get() == True:
+        PC_list.append("Argent Southern")
+    if AVENIR_SOUTHERN.get() == True:
+        PC_list.append("Avenir Southern")
+    if BRODWARE_SOUTHERN.get() == True:
+        PC_list.append("Brodware Southern")
+    if CAROMA_SOUTHERN.get() == True:
+        PC_list.append("Caroma Southern")
+    if DECINA_SOUTHERN.get() == True:
+        PC_list.append("Decina Southern")
+    if FIENZA_SOUTHERN.get() == True:
+        PC_list.append("Fienza Southern")
+    if HANSGROHE_SOUTHERN.get() == True:
+        PC_list.append("Hansgrohe Southern")
+    if MARQUIS_SOUTHERN.get() == True:
+        PC_list.append("Marquis Southern")
+    if MEIR_SOUTHERN.get() == True:
+        PC_list.append("Meir Southern")
+    if METHVEN_SOUTHERN.get() == True:
+        PC_list.append("Methven Southern")
+    if NEKO_SOUTHERN.get() == True:
+        PC_list.append("Neko Southern")
+    if PIETRA_BIANCA_SOUTHERN.get() == True:
+        PC_list.append("Pietra Southern")
+    if RAM_SOUTHERN.get() == True:
+        PC_list.append("RAM Southern")
+    if STONE_BATH_SOUTHERN.get() == True:
+        PC_list.append("Stone Bath Southern")
+    if VICTORIA_AND_ALBERT_SOUTHERN.get() == True:
+        PC_list.append("Victora Albert Southern")
+
     name = input_list[0]
     if output_path is not None and output_path is not "":
         funs.generate_raw_output(name, data_folder, sub_list,output_path)
@@ -193,12 +228,83 @@ SUSSEX = BooleanVar()
 cbt20=Checkbutton(window, text="SUSSEX", variable=SUSSEX)
 cbt20.place(x=550, y=500)
 
+lbl_11=Label(window, text="Southern:", fg='black', font=("Helvetica", 12))
+lbl_11.place(x=750, y=80)
+
+ABEY_SOUTHERN = BooleanVar()
+cbt21=Checkbutton(window, text="ABEY", variable=ABEY_SOUTHERN)
+cbt21.place(x=750, y=110)
+
+ARGENT_VILLEROY_AND_BOCH_SOUTHERN = BooleanVar()
+cbt22=Checkbutton(window, text="ARGENT VILLEROY AND BOCH", variable=ARGENT_VILLEROY_AND_BOCH_SOUTHERN)
+cbt22.place(x=750, y=140)
+
+ARGENT_SOUTHERN = BooleanVar()
+cbt23=Checkbutton(window, text="ARGENT", variable=ARGENT_SOUTHERN)
+cbt23.place(x=750, y=170)
+
+AVENIR_SOUTHERN = BooleanVar()
+cbt24=Checkbutton(window, text="AVENIR", variable=AVENIR_SOUTHERN)
+cbt24.place(x=750, y=200)
+
+BRODWARE_SOUTHERN = BooleanVar()
+cbt25=Checkbutton(window, text="BRODWARE", variable=BRODWARE_SOUTHERN)
+cbt25.place(x=750, y=230)
+
+CAROMA_SOUTHERN = BooleanVar()
+cbt26=Checkbutton(window, text="CAROMA", variable=CAROMA_SOUTHERN)
+cbt26.place(x=750, y=260)
+
+DECINA_SOUTHERN = BooleanVar()
+cbt27=Checkbutton(window, text="DECINA", variable=DECINA_SOUTHERN)
+cbt27.place(x=750, y=290)
+
+FIENZA_SOUTHERN = BooleanVar()
+cbt28=Checkbutton(window, text="FIENZA", variable=FIENZA_SOUTHERN)
+cbt28.place(x=750, y=320)
+
+HANSGROHE_SOUTHERN = BooleanVar()
+cbt29=Checkbutton(window, text="HANSGROHE", variable=HANSGROHE_SOUTHERN)
+cbt29.place(x=750, y=350)
+
+MARQUIS_SOUTHERN = BooleanVar()
+cbt30=Checkbutton(window, text="MARQUIS", variable=MARQUIS_SOUTHERN)
+cbt30.place(x=750, y=380)
+
+MEIR_SOUTHERN = BooleanVar()
+cbt31=Checkbutton(window, text="MEIR", variable=MEIR_SOUTHERN)
+cbt31.place(x=750, y=410)
+
+METHVEN_SOUTHERN = BooleanVar()
+cbt32=Checkbutton(window, text="METHVEN", variable=METHVEN_SOUTHERN)
+cbt32.place(x=750, y=440)
+
+NEKO_SOUTHERN = BooleanVar()
+cbt33=Checkbutton(window, text="NEKO", variable=NEKO_SOUTHERN)
+cbt33.place(x=750, y=470)
+
+PIETRA_BIANCA_SOUTHERN = BooleanVar()
+cbt34=Checkbutton(window, text="PIETRA BIANCA", variable=PIETRA_BIANCA_SOUTHERN)
+cbt34.place(x=750, y=500)
+
+RAM_SOUTHERN = BooleanVar()
+cbt35=Checkbutton(window, text="RAM", variable=RAM_SOUTHERN)
+cbt35.place(x=850, y=110)
+
+STONE_BATH_SOUTHERN = BooleanVar()
+cbt36=Checkbutton(window, text="STONE BATH", variable=STONE_BATH_SOUTHERN)
+cbt36.place(x=850, y=170)
+
+VICTORIA_AND_ALBERT_SOUTHERN = BooleanVar()
+cbt37=Checkbutton(window, text="VICTORIA AND ALBERT", variable=VICTORIA_AND_ALBERT_SOUTHERN)
+cbt37.place(x=850, y=200)
+
 btn=Button(window, text="Generate Warranty Book", fg='black',
            command = lambda:main([txtfld1.get(),txtfld2.get(),txtfld3.get(),txtfld4.get(),
                                   txtfld5.get(),txtfld6.get(),txtfld7.get()]
                                  ,"C:/warranty_book","C:/warranty_book"))
 btn.place(x=400, y=550)
 
-window.title('Warranty Book Generator v0.11')
+window.title('Warranty Book Generator v0.20')
 window.geometry("1000x600+10+20")
 window.mainloop()
