@@ -6,8 +6,9 @@ from docx.shared import RGBColor
 from os import path
 from os import environ
 import win32com.client
+from PyPDF2 import PdfFileMerger
 
-def generate_raw_output(data_folder, sub_list, output_path = path.join(environ["HOMEPATH"], "Desktop/output.docx")):
+def generate_raw_output(name, data_folder, sub_list, output_path = path.join(environ["HOMEPATH"], "Desktop/output.docx")):
 
 	word = win32com.client.gencache.EnsureDispatch('Word.Application')
 	word.Visible = False
@@ -21,17 +22,28 @@ def generate_raw_output(data_folder, sub_list, output_path = path.join(environ["
 		files.append(data_folder+'/data/Can_Plumb.docx')
 	if "Showerscreen" in sub_list:
 		files.append(data_folder+'/data/Shower_Screen.docx')
+	if "Beaumont" in sub_list:
+		files.append(data_folder+'/data/Beaumont_Tile.docx')
+	if "Black" in sub_list:
+		files.append(data_folder+'/data/Black_Tile.docx')
 
 	for i in range(len(files)):
 		output.Application.Selection.Range.InsertFile(files[len(files)-i-1])
 
 	output.Range(output.Content.Start, output.Content.End)
 
-	output.SaveAs(output_path+"/output.docx")
+	output.SaveAs(output_path+"/"+name+" Warranty Book.docx")
 	output.Close()
 
-def fill_information(name, address, output_path = path.join(environ["HOMEPATH"], "Desktop/output.docx")):
-	document = docx.Document(output_path+"/output.docx")
+def fill_information(input_list, output_path = path.join(environ["HOMEPATH"], "Desktop/output.docx")):
+	name = input_list[0]
+	address = input_list[1]
+	Tile1 = input_list[2]
+	Tile2 = input_list[3]
+	Tile3 = input_list[4]
+	Tile4 = input_list[5]
+	Tile5 = input_list[6]
+	document = docx.Document(output_path+"/"+name+" Warranty Book.docx")
 	for paragraph in document.paragraphs:
 		if 'Customer_Address' in paragraph.text:
 			paragraph.text = paragraph.text.replace("[Customer_Address]",address)
@@ -75,4 +87,123 @@ def fill_information(name, address, output_path = path.join(environ["HOMEPATH"],
 				color = font.color
 				color.rgb = RGBColor(255, 255, 255)
 				run._element.rPr.rFonts.set(qn('w:eastAsia'), u'Arial')
-	document.save(output_path+"/output.docx")
+		if 'Tile_1' in paragraph.text:
+			paragraph.text = paragraph.text.replace("[Tile_1]",Tile1)
+			paragraph_reserve = paragraph.text
+			paragraph.text = ""
+			try:
+				place = [m.start() for m in finditer(Tile1, paragraph_reserve)][0]
+			except:
+				place = 0
+			for i, ch in enumerate(paragraph_reserve):
+				run = paragraph.add_run(ch)
+				font = run.font
+				font.name = u'Arial'
+				font.size = Pt(11)
+				color = font.color
+				color.rgb = RGBColor(0,0,0)
+				run._element.rPr.rFonts.set(qn('w:eastAsia'), u'Arial')
+		if 'Tile_2' in paragraph.text:
+			paragraph.text = paragraph.text.replace("[Tile_2]",Tile2)
+			paragraph_reserve = paragraph.text
+			paragraph.text = ""
+			try:
+				place = [m.start() for m in finditer(Tile2, paragraph_reserve)][0]
+			except:
+				place = 0
+			for i, ch in enumerate(paragraph_reserve):
+				run = paragraph.add_run(ch)
+				font = run.font
+				font.name = u'Arial'
+				font.size = Pt(11)
+				color = font.color
+				color.rgb = RGBColor(0,0,0)
+				run._element.rPr.rFonts.set(qn('w:eastAsia'), u'Arial')
+		if 'Tile_3' in paragraph.text:
+			paragraph.text = paragraph.text.replace("[Tile_3]",Tile3)
+			paragraph_reserve = paragraph.text
+			paragraph.text = ""
+			try:
+				place = [m.start() for m in finditer(Tile3, paragraph_reserve)][0]
+			except:
+				place = 0
+			for i, ch in enumerate(paragraph_reserve):
+				run = paragraph.add_run(ch)
+				font = run.font
+				font.name = u'Arial'
+				font.size = Pt(11)
+				color = font.color
+				color.rgb = RGBColor(0,0,0)
+				run._element.rPr.rFonts.set(qn('w:eastAsia'), u'Arial')
+		if 'Tile_4' in paragraph.text:
+			paragraph.text = paragraph.text.replace("[Tile_4]",Tile4)
+			paragraph_reserve = paragraph.text
+			paragraph.text = ""
+			try:
+				place = [m.start() for m in finditer(Tile4, paragraph_reserve)][0]
+			except:
+				place = 0
+			for i, ch in enumerate(paragraph_reserve):
+				run = paragraph.add_run(ch)
+				font = run.font
+				font.name = u'Arial'
+				font.size = Pt(11)
+				color = font.color
+				color.rgb = RGBColor(0,0,0)
+				run._element.rPr.rFonts.set(qn('w:eastAsia'), u'Arial')
+		if 'Tile_5' in paragraph.text:
+			paragraph.text = paragraph.text.replace("[Tile_5]",Tile5)
+			paragraph_reserve = paragraph.text
+			paragraph.text = ""
+			try:
+				place = [m.start() for m in finditer(Tile5, paragraph_reserve)][0]
+			except:
+				place = 0
+			for i, ch in enumerate(paragraph_reserve):
+				run = paragraph.add_run(ch)
+				font = run.font
+				font.name = u'Arial'
+				font.size = Pt(11)
+				color = font.color
+				color.rgb = RGBColor(0,0,0)
+				run._element.rPr.rFonts.set(qn('w:eastAsia'), u'Arial')
+	document.save(output_path+"/"+name+" Warranty Book.docx")
+
+def pdf_combiner(data_folder, PC_list, name, output_path = path.join(environ["HOMEPATH"], "Desktop/output.docx")): # Combine the files in the pdf
+	files = []
+	if "ADP Reece" in PC_list:
+		files.append(data_folder+'/data/Reece/ADP.pdf')
+	if "AXA Reece" in PC_list:
+		files.append(data_folder+'/data/Reece/AXA.pdf')
+	if "CAROMA Reece" in PC_list:
+		files.append(data_folder+'/data/Reece/CAROMA.pdf')
+	if "KADO Reece" in PC_list:
+		files.append(data_folder+'/data/Reece/KADO.pdf')
+	if "LAUFEN Reece" in PC_list:
+		files.append(data_folder+'/data/Reece/LAUFEN.pdf')
+	if "METHVEN Reece" in PC_list:
+		files.append(data_folder+'/data/Reece/METHVEN.pdf')
+	if "MILLI Reece" in PC_list:
+		files.append(data_folder+'/data/Reece/MILLI.pdf')
+	if "MIZU Reece" in PC_list:
+		files.append(data_folder+'/data/Reece/MIZU.pdf')
+	if "NIKLES Reece" in PC_list:
+		files.append(data_folder+'/data/Reece/NIKLES.pdf')
+	if "PHOENIX Reece" in PC_list:
+		files.append(data_folder+'/data/Reece/PHOENIX.pdf')
+	if "POSH Reece" in PC_list:
+		files.append(data_folder+'/data/Reece/POSH.pdf')
+	if "ROCA Reece" in PC_list:
+		files.append(data_folder+'/data/Reece/ROCA.pdf')
+	if "SONIA Reece" in PC_list:
+		files.append(data_folder+'/data/Reece/SONIA.pdf')
+	if "SUSSEX Reece" in PC_list:
+		files.append(data_folder+'/data/Reece/SUSSEX.pdf')
+
+
+	merger = PdfFileMerger()
+	for i in range(len(files)):
+		merger.append(open(files[i], 'rb'))
+	with open(output_path + "/" + name + " Warranty Book PC Items.pdf", 'wb') as fout:  # different from func
+		# This is the output path
+		merger.write(fout)
