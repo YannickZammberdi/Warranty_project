@@ -4,6 +4,11 @@ Please put the whole file in the root of drive C:/
 -----------------------------------
 Update log:
 
+24/06/2019 v0.31
+1. Make the height of the window suitable with reece and southern product list
+2. All internal users can update the file using the update button
+3. Database updated
+
 17/06/2019 v0.30
 1. Fixed the bug to deal with new version of Windows
 2. Restructured some function to make it simpler to maintain
@@ -22,4 +27,4 @@ Update log:
 3. Current useful things: Electrical, Plumbing, Showerscreen
 
 Prospect next version:
-Try to link Buildertrend or Google drive for documents, like upload warranty book to buildertrend, or use google drive as address
+Change to relative path

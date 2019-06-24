@@ -1,15 +1,15 @@
 import funs
+import update
+from time import sleep
 from tkinter import *
 from os import path
 from os import environ
+from os import listdir
+from os.path import isfile, join
 
-full_sub_list = ["Dream_Electrical", "Aus_Plumb", "Can_Plumb", "Shower_Screen", "Beaumont_Tile", "Black_Tile"]
-full_Reece_list = ["ADP Reece","AXA Reece","CAROMA Reece","KADO Reece","LAUFEN Reece","METHVEN Reece","MILLI Reece",
-                "MIZU Reece","NIKLES Reece","PHOENIX Reece","POSH Reece","ROCA Reece","SONIA Reece","SUSSEX Reece"]
-full_Southern_list = ["Abey Southern","Argent Villeroy and Boch Southern","Argent Southern","Avenir Southern",
-                      "Brodware Southern","Caroma Southern","Decina Southern","Fienza Southern","Hansgrohe Southern",
-                      "Marquis Southern","Meir Southern","Methven Southern","Neko Southern","PIETRA BIANCA Southern",
-                      "RAM Southern","Stone Bath Southern","Victoria and Albert Southern"]
+full_sub_list = ["Aaron_Pearce","Dream_Electrical", "Aus_Plumb", "Can_Plumb", "Shower_Screen", "Beaumont_Tile", "Black_Tile"]
+full_Reece_list = [f+" Reece" for f in listdir("C:/warranty_book/data/Reece") if isfile(join("C:/warranty_book/data/Reece", f))]
+full_Southern_list = [f+" Southern" for f in listdir("C:/warranty_book/data/Southern") if isfile(join("C:/warranty_book/data/Southern", f))]
 full_Reece_list = sorted(full_Reece_list)
 full_Southern_list = sorted(full_Southern_list)
 page_list = full_Reece_list + full_Southern_list
@@ -35,6 +35,11 @@ def main(input_list, data_folder = 'C:/Tom/Warranty_project/', output_path = pat
         funs.fill_information(input_list,output_path)
         funs.pdf_combiner(data_folder, PC_list, name, output_path)
 
+def update_file_list(label):
+    update.update()
+    label.configure(text="Update finished, please close this window and restart again")
+
+
 window=Tk()
 
 lbl=Label(window, text="Customer Name:", fg='black', font=("Helvetica", 12))
@@ -56,7 +61,7 @@ sub_var = []
 sub_cbt = []
 for i in range(len(full_sub_list)):
     sub_var.append(BooleanVar())
-    sub_cbt.append(Checkbutton(window, text=full_sub_list[i], variable=sub_var[i]))
+    sub_cbt.append(Checkbutton(window, text=full_sub_list[i].replace("_"," "), variable=sub_var[i]))
     if 200 + 30 * i < 351:
         sub_cbt[i].place(x=100, y=200 + 30 * i)
     else:
@@ -67,10 +72,10 @@ page_cbt = []
 for i in range(len(page_list)):
     page_var.append(BooleanVar())
     if "Reece" in page_list[i]:
-        page_cbt.append(Checkbutton(window, text=page_list[i].replace(" Reece", ""), variable=page_var[i]))
+        page_cbt.append(Checkbutton(window, text=page_list[i].replace(".pdf Reece", "").upper(), variable=page_var[i]))
         page_cbt[i].place(x=550, y=110 + 30*i)
     if "Southern" in page_list[i]:
-        page_cbt.append(Checkbutton(window, text=page_list[i].replace(" Southern", ""), variable=page_var[i]))
+        page_cbt.append(Checkbutton(window, text=page_list[i].replace(".pdf Southern", "").upper(), variable=page_var[i]))
         if i-len(full_Reece_list) <14:
             page_cbt[i].place(x=750, y=110 + 30*(i-len(full_Reece_list)))
         else:
@@ -120,9 +125,16 @@ btn=Button(window, text="Generate Warranty Book", fg='black',
            command = lambda:main([txtfld1.get(),txtfld2.get(),txtfld3.get(),txtfld4.get(),
                                   txtfld5.get(),txtfld6.get(),txtfld7.get()]
                                  ,"C:/warranty_book","C:/warranty_book"))
-btn.place(x=400, y=550)
+btn.place(x=700, y=max(len(full_Reece_list)*30+130,550))
 
-window.title('Warranty Book Generator v0.30')
-window.geometry("1200x700+10+20")
+lbl_12=Label(window, text="", fg='black', font=("Helvetica", 12))
+lbl_12.place(x=250, y=max(len(full_Reece_list)*30+130,550))
+
+btn=Button(window, text="Update File List", fg='black',
+           command = lambda:update_file_list(lbl_12))
+btn.place(x=100, y=max(len(full_Reece_list)*30+130,550))
+
+window.title('Warranty Book Generator v0.31')
+window.geometry("1150x"+str(max(len(full_Reece_list)*30+180,(len(full_Southern_list)-14)*30+180,600))+"+10+20")
 window.resizable(0,0)
 window.mainloop()
