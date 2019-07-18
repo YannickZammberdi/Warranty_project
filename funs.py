@@ -163,9 +163,9 @@ def pdf_combiner(data_folder, PC_list, name, output_path = path.join(environ["HO
 	files = []
 	for i in range(len(PC_list)):
 		if "Reece" in PC_list[i]:
-			files.append(data_folder + '/data/Reece/'+PC_list[i].replace(" Reece", "").upper()+'.pdf')
+			files.append(data_folder + '/data/Reece/'+PC_list[i].replace(" Reece", "").upper())
 		if "Southern" in PC_list[i]:
-			files.append(data_folder + '/data/Southern/'+PC_list[i].replace(" Southern", "").upper()+'.pdf')
+			files.append(data_folder + '/data/Southern/'+PC_list[i].replace(" Southern", "").upper())
 
 	merger = PdfFileMerger()
 	for i in range(len(files)):
