@@ -1,6 +1,4 @@
 import funs
-import update
-from time import sleep
 from tkinter import *
 from os import path
 from os import environ
@@ -34,11 +32,6 @@ def main(input_list, data_folder = 'C:/Tom/Warranty_project/', output_path = pat
         funs.generate_raw_output(name, data_folder, sub_list)
         funs.fill_information(input_list,output_path)
         funs.pdf_combiner(data_folder, PC_list, name, output_path)
-
-def update_file_list(label):
-    update.update()
-    label.configure(text="Update finished, please close this window and restart again")
-
 
 window=Tk()
 
@@ -130,11 +123,7 @@ btn.place(x=700, y=max(len(full_Reece_list)*30+130,550))
 lbl_12=Label(window, text="", fg='black', font=("Helvetica", 12))
 lbl_12.place(x=250, y=max(len(full_Reece_list)*30+130,550))
 
-btn=Button(window, text="Update File List", fg='black',
-           command = lambda:update_file_list(lbl_12))
-btn.place(x=100, y=max(len(full_Reece_list)*30+130,550))
-
-window.title('Warranty Book Generator v0.31')
+window.title('Warranty Book Generator v0.40')
 window.geometry("1150x"+str(max(len(full_Reece_list)*30+180,(len(full_Southern_list)-14)*30+180,600))+"+10+20")
 window.resizable(0,0)
 window.mainloop()

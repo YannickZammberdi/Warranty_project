@@ -3,10 +3,11 @@ from docx.oxml.ns import qn
 from re import finditer
 from docx.shared import Pt
 from docx.shared import RGBColor
-from os import path
+from os import path,remove
 from os import environ
 import win32com.client
 from PyPDF2 import PdfFileMerger
+import comtypes.client
 
 def generate_raw_output(name, data_folder, sub_list, output_path = path.join(environ["HOMEPATH"], "Desktop/output.docx")):
 
@@ -22,7 +23,7 @@ def generate_raw_output(name, data_folder, sub_list, output_path = path.join(env
 
 	output.Range(output.Content.Start, output.Content.End)
 
-	output.SaveAs(output_path+"/"+name+" Warranty Book.docx")
+	output.SaveAs(output_path+"/"+name+" Warranty Book part 1.docx")
 	output.Close()
 
 def fill_information(input_list, output_path = path.join(environ["HOMEPATH"], "Desktop/output.docx")):
@@ -33,7 +34,7 @@ def fill_information(input_list, output_path = path.join(environ["HOMEPATH"], "D
 	Tile3 = input_list[4]
 	Tile4 = input_list[5]
 	Tile5 = input_list[6]
-	document = docx.Document(output_path+"/"+name+" Warranty Book.docx")
+	document = docx.Document(output_path+"/"+name+" Warranty Book part 1.docx")
 	for paragraph in document.paragraphs:
 		if 'Customer_Address' in paragraph.text:
 			paragraph.text = paragraph.text.replace("[Customer_Address]",address)
@@ -157,10 +158,15 @@ def fill_information(input_list, output_path = path.join(environ["HOMEPATH"], "D
 				color = font.color
 				color.rgb = RGBColor(0,0,0)
 				run._element.rPr.rFonts.set(qn('w:eastAsia'), u'Arial')
-	document.save(output_path+"/"+name+" Warranty Book.docx")
+	document.save(output_path+"/"+name+" Warranty Book part 1.docx")
+	# print(output_path+"/"+name+" Warranty Book.docx")
+	doc_to_pdf(output_path.replace("/","\\")+"\\"+name+" Warranty Book part 1.docx",
+			   output_path.replace("/","\\")+"\\"+name+" Warranty Book part 1.pdf")
+	remove(output_path.replace("/","\\")+"\\"+name+" Warranty Book part 1.docx")
 
 def pdf_combiner(data_folder, PC_list, name, output_path = path.join(environ["HOMEPATH"], "Desktop/output.docx")): # Combine the files in the pdf
 	files = []
+	files.append(output_path.replace("/","\\")+"\\"+name+" Warranty Book part 1.pdf")
 	for i in range(len(PC_list)):
 		if "Reece" in PC_list[i]:
 			files.append(data_folder + '/data/Reece/'+PC_list[i].replace(" Reece", "").upper())
@@ -168,8 +174,23 @@ def pdf_combiner(data_folder, PC_list, name, output_path = path.join(environ["HO
 			files.append(data_folder + '/data/Southern/'+PC_list[i].replace(" Southern", "").upper())
 
 	merger = PdfFileMerger()
+	file_list = []
 	for i in range(len(files)):
-		merger.append(open(files[i], 'rb'))
-	with open(output_path + "/" + name + " Warranty Book PC Items.pdf", 'wb') as fout:  # different from func
+		file_list.append(open(files[i], 'rb'))
+		merger.append(file_list[i])
+
+	with open(output_path + "/" + name + " Warranty Book.pdf", 'wb') as fout:  # different from func
 		# This is the output path
 		merger.write(fout)
+	for i in range(len(file_list)):
+		file_list[i].close()
+	remove(output_path.replace("/","\\")+"\\"+name+" Warranty Book part 1.pdf")
+
+def doc_to_pdf(input_path,output_path):
+	# input_path = "C:\warranty_book\\232 Warranty Book.docx"
+	# output_path= "C:\warranty_book\\232 Warranty Book.pdf"
+	word = comtypes.client.CreateObject('Word.Application')
+	doc = word.Documents.Open(input_path)
+	doc.SaveAs(output_path, FileFormat=17)
+	doc.Close()
+	word.Quit()
